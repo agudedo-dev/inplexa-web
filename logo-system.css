@@ -1,2 +1,3 @@
 /* INPLEXA mark: two connected forms express the bridge from an idea to industrial production. */
 .brand{display:inline-flex;align-items:center;gap:9px;letter-spacing:0}.brand-mark{width:35px;height:35px;display:block}.brand-word{font-weight:800;font-size:1.32rem;letter-spacing:-1.4px;color:#f5f8fb}.brand-word b{color:#00c7ff;font-weight:800}footer .brand-mark{width:32px;height:32px}footer .brand-word{font-size:1.16rem}
+.brand{display:inline-flex;align-items:center;gap:9px}.brand small{display:block;font:500 .57rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#8ea8bb;white-space:nowrap}@media(max-width:800px){.brand small{display:none}}
