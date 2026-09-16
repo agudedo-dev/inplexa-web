@@ -4,13 +4,17 @@
   const params = new URLSearchParams(location.search);
   const tracked = ['utm_source','utm_medium','utm_campaign','gclid'];
   window.dataLayer = window.dataLayer || [];
-  const sendEvent = (name, details={}) => window.dataLayer.push({event:name,...details});
+  const sendEvent = (name, details={}) => {
+    window.dataLayer.push({event:name,...details});
+    if (typeof window.gtag === 'function') window.gtag('event', name, details);
+  };
   const whatsappUrl = message => `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
   document.querySelectorAll('[data-whatsapp]').forEach(link => {
     link.href = whatsappUrl('Hola INPLEXA, quiero consultar por desarrollo y fabricación de piezas plásticas.');
     link.addEventListener('click', () => {
-      sendEvent('inplexa_whatsapp_click',{placement:link.className || 'link'});
-      if (typeof window.gtag === 'function') window.gtag('event','conversion',{send_to:'AW-18452248601/wT3nCLHmqvgcEJnw295E',value:1.0,currency:'ARS'});
+      // A WhatsApp click is useful engagement, but not a confirmed lead. It is
+      // deliberately excluded from the Google Ads conversion used for bidding.
+      sendEvent('contact',{placement:link.className || 'link',contact_method:'whatsapp'});
     });
   });
   tracked.forEach(key => { const input=document.querySelector(`[name="${key}"]`); if(input) input.value=params.get(key)||''; });
@@ -18,7 +22,7 @@
   document.getElementById('quoteForm').addEventListener('submit', function(event){
     event.preventDefault(); const d=new FormData(this);
     const msg=`Hola INPLEXA, solicito cotización.\n\n*Nombre:* ${d.get('nombre')}\n*Empresa:* ${d.get('empresa')}\n*Rol:* ${d.get('rol')}\n*Tipo de proyecto:* ${d.get('tipo_proyecto')}\n*WhatsApp:* ${d.get('telefono')}\n*Email:* ${d.get('email')}\n*Necesidad:* ${d.get('consulta')}\n\nOrigen campaña: ${d.get('utm_source')||'directo'} | ${d.get('utm_campaign')||'sin campaña'} | GCLID: ${d.get('gclid')||'sin GCLID'}`;
-    sendEvent('inplexa_generate_lead',{lead_source:d.get('utm_source')||'direct'});
+    sendEvent('generate_lead',{lead_source:d.get('utm_source')||'direct',contact_method:'whatsapp_form'});
     if (typeof window.gtag === 'function') window.gtag('event','conversion',{send_to:'AW-18452248601/wT3nCLHmqvgcEJnw295E',value:1.0,currency:'ARS'});
     window.open(whatsappUrl(msg),'_blank','noopener');
   });
