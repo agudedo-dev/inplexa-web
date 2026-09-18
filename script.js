@@ -15,6 +15,11 @@
       // A WhatsApp click is useful engagement, but not a confirmed lead. It is
       // deliberately excluded from the Google Ads conversion used for bidding.
       sendEvent('contact',{placement:link.className || 'link',contact_method:'whatsapp'});
+      if (typeof window.gtag === 'function') window.gtag('event','conversion',{
+        send_to:'AW-18452248601/dmTDCLOM8PscEJnw295E',
+        value:1.0,
+        currency:'ARS'
+      });
     });
   });
   tracked.forEach(key => { const input=document.querySelector(`[name="${key}"]`); if(input) input.value=params.get(key)||''; });
