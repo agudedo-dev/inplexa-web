@@ -32,8 +32,10 @@
   });
   tracked.forEach(key => { const input=document.querySelector(`[name="${key}"]`); if(input) input.value=params.get(key)||''; });
   document.getElementById('year').textContent = new Date().getFullYear();
-  document.getElementById('quoteForm').addEventListener('submit', function(event){
-    event.preventDefault(); const d=new FormData(this);
+  const quoteForm = document.getElementById('quoteForm');
+  const submitQuote = () => {
+    if (!quoteForm.reportValidity()) return;
+    const d=new FormData(quoteForm);
     const msg=`Hola INPLEXA, solicito cotización.\n\n*Nombre:* ${d.get('nombre')}\n*Empresa:* ${d.get('empresa')}\n*Rol:* ${d.get('rol')}\n*Tipo de proyecto:* ${d.get('tipo_proyecto')}\n*WhatsApp:* ${d.get('telefono')}\n*Email:* ${d.get('email')}\n*Necesidad:* ${d.get('consulta')}\n\nOrigen campaña: ${d.get('utm_source')||'directo'} | ${d.get('utm_campaign')||'sin campaña'} | GCLID: ${d.get('gclid')||'sin GCLID'}`;
     sendEvent('generate_lead',{lead_source:d.get('utm_source')||'direct',contact_method:'whatsapp_form'});
     // This measures a completed form handed off to WhatsApp, not a delivered message.
@@ -46,5 +48,13 @@
     };
     setTimeout(openWhatsApp, 900);
     conversion({send_to:'AW-18452248601/wT3nCLHmqvgcEJnw295E',value:1.0,currency:'ARS',event_callback:openWhatsApp,event_timeout:800});
+  };
+  quoteForm.addEventListener('submit', event => {
+    event.preventDefault();
+    submitQuote();
+  });
+  quoteForm.querySelector('[type="submit"]').addEventListener('click', event => {
+    event.preventDefault();
+    submitQuote();
   });
 })();
