@@ -36,7 +36,8 @@
   const submitQuote = () => {
     if (!quoteForm.reportValidity()) return;
     const d=new FormData(quoteForm);
-    const msg=`Hola INPLEXA, solicito cotización.\n\n*Nombre:* ${d.get('nombre')}\n*Empresa:* ${d.get('empresa')}\n*Rol:* ${d.get('rol')}\n*Tipo de proyecto:* ${d.get('tipo_proyecto')}\n*WhatsApp:* ${d.get('telefono')}\n*Email:* ${d.get('email')}\n*Necesidad:* ${d.get('consulta')}\n\nOrigen campaña: ${d.get('utm_source')||'directo'} | ${d.get('utm_campaign')||'sin campaña'} | GCLID: ${d.get('gclid')||'sin GCLID'}`;
+    const company = String(d.get('empresa') || '').trim();
+    const msg=`Hola INPLEXA, quiero consultar por un proyecto.\n\n*Nombre:* ${d.get('nombre')}${company ? `\n*Empresa:* ${company}` : ''}\n*Necesidad:* ${d.get('consulta')}\n\nOrigen campaña: ${d.get('utm_source')||'directo'} | ${d.get('utm_campaign')||'sin campaña'} | GCLID: ${d.get('gclid')||'sin GCLID'}`;
     sendEvent('generate_lead',{lead_source:d.get('utm_source')||'direct',contact_method:'whatsapp_form'});
     // This measures a completed form handed off to WhatsApp, not a delivered message.
     // Same-tab navigation avoids losing the inquiry to a popup blocker.
