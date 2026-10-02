@@ -2,10 +2,12 @@
 
 Abrí `index.html` en un navegador para verla localmente.
 
-## Antes de publicar
+## Sitio publicado y medición
 
-1. El WhatsApp comercial ya está configurado en `config.js` como `5491131008720`, sin el signo `+` ni espacios.
-2. El canonical está preparado para `https://www.inplexa.com/`; confirmalo una vez que el dominio esté comprado y conectado.
-3. Para medir Google Ads, pegá el código de etiqueta de Google (Google tag) antes de `</head>` en `index.html`. Los eventos ya preparados se llaman `inplexa_whatsapp_click` y `inplexa_generate_lead`.
+1. El WhatsApp comercial está configurado en `config.js` como `5491131008720`, sin el signo `+` ni espacios.
+2. El sitio publicado es `https://inplexa.com/`; la ruta de campaña `https://inplexa.com/desarrollo/plastico` también sirve la landing.
+3. `index.html` ya carga Google Ads (`AW-18452248601`) y GA4 (`G-6NSYC7V5YL`). `script.js` registra `contact` para los enlaces directos y `generate_lead` para el formulario, además de sus acciones de conversión existentes.
 
-La página conserva `utm_source`, `utm_medium`, `utm_campaign` y `gclid` en el mensaje enviado desde el formulario, para asociar cada consulta a su campaña.
+La página conserva `utm_source`, `utm_medium`, `utm_campaign` y `gclid` en los campos ocultos del formulario y en su evento interno de `dataLayer`. Google tag mantiene la medición desde la URL. Esos valores no se agregan al texto que ve o envía el cliente por WhatsApp, ni se agregan como parámetros personalizados a `gtag`.
+
+La conversión del formulario mide la preparación de la consulta y su apertura en WhatsApp; no confirma que el cliente haya enviado el mensaje. La landing no guarda consultas directamente en el CRM.

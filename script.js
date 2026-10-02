@@ -4,10 +4,10 @@
   const params = new URLSearchParams(location.search);
   const tracked = ['utm_source','utm_medium','utm_campaign','gclid'];
   window.dataLayer = window.dataLayer || [];
-  const sendEvent = (name, details={}) => {
+  const sendEvent = (name, details={}, attribution={}) => {
     // Measurement must never prevent a visitor from contacting the factory.
     try {
-      window.dataLayer.push({event:name,...details});
+      window.dataLayer.push({event:name,...details,...attribution});
       if (typeof window.gtag === 'function') window.gtag('event', name, details);
     } catch (_) {}
   };
@@ -37,8 +37,10 @@
     if (!quoteForm.reportValidity()) return;
     const d=new FormData(quoteForm);
     const company = String(d.get('empresa') || '').trim();
-    const msg=`Hola INPLEXA, quiero consultar por un proyecto.\n\n*Nombre:* ${d.get('nombre')}${company ? `\n*Empresa:* ${company}` : ''}\n*Necesidad:* ${d.get('consulta')}\n\nOrigen campaña: ${d.get('utm_source')||'directo'} | ${d.get('utm_campaign')||'sin campaña'} | GCLID: ${d.get('gclid')||'sin GCLID'}`;
-    sendEvent('generate_lead',{lead_source:d.get('utm_source')||'direct',contact_method:'whatsapp_form'});
+    const msg=`Hola INPLEXA, quiero consultar por un proyecto.\n\n*Nombre:* ${d.get('nombre')}${company ? `\n*Empresa:* ${company}` : ''}\n*Necesidad:* ${d.get('consulta')}`;
+    // Keep campaign attribution internal; it must never be appended to the customer's message.
+    const attribution = Object.fromEntries(tracked.map(key => [key, String(d.get(key) || '')]));
+    sendEvent('generate_lead',{lead_source:d.get('utm_source')||'direct',contact_method:'whatsapp_form'},attribution);
     // This measures a completed form handed off to WhatsApp, not a delivered message.
     // Same-tab navigation avoids losing the inquiry to a popup blocker.
     let navigated = false;
