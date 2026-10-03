@@ -55,7 +55,7 @@
     const demand = d.get('periodo_demanda') === 'a_definir'
       ? 'A definir con evaluación comercial'
       : `${d.get('cantidad_demanda')} unidades (${d.get('periodo_demanda')})`;
-    const msg=`Hola INPLEXA, quiero cotizar una producción industrial en serie.\n\n*Empresa:* ${company}\n*Nombre:* ${d.get('nombre')}\n*Email:* ${d.get('email')}\n*Teléfono:* ${d.get('telefono')}\n*Pieza y aplicación:* ${d.get('consulta')}\n*Primer lote:* ${d.get('cantidad_lote')} unidades\n*Producción:* ${d.get('recurrencia')}\n*Demanda prevista:* ${demand}\n*Material:* ${d.get('material') || 'Requiere asesoramiento'}\n*Documentación:* ${d.get('documentacion')}\n*Molde:* ${d.get('molde')}\n*Plazo:* ${d.get('plazo') || 'A definir'}`;
+    const msg=`Hola INPLEXA, quiero cotizar una producción industrial en serie.\n\n*Empresa:* ${company}\n*Nombre:* ${d.get('nombre')}\n*Email:* ${d.get('email') || 'No indicado'}\n*Teléfono:* ${d.get('telefono')}\n*Pieza y aplicación:* ${d.get('consulta')}\n*Primer lote:* ${d.get('cantidad_lote')} unidades\n*Demanda prevista:* ${demand}\n*Material:* ${d.get('material') || 'Requiere asesoramiento'}\n*Documentación:* ${d.get('documentacion')}\n*Plazo:* ${d.get('plazo') || 'A definir'}`;
     // Keep campaign attribution internal; it must never be appended to the customer's message.
     const attribution = Object.fromEntries(tracked.map(key => [key, String(d.get(key) || '')]));
     sendEvent('generate_lead',{lead_source:d.get('utm_source')||'direct',contact_method:'whatsapp_form'},attribution);
