@@ -11,3 +11,27 @@
 .technical-details summary{font-weight:600;font-size:14px;cursor:pointer;padding:5px 0 14px}
 .field-help{font-size:12px;line-height:1.6;margin:0 0 10px}
 @media(max-width:600px){.qualification-grid{grid-template-columns:minmax(0,1fr)}.hero h1{font-size:clamp(38px,9.5vw,56px)}.hero-actions .button{white-space:normal;min-width:130px}.hero-note{font-size:11px}.form-panel{padding:26px 20px}}
+
+/* Essential inquiry fields follow the original visual language. */
+fieldset{border:0;min-width:0;margin:0 0 10px;padding:0}
+legend{padding:0;margin:0 0 16px;font-size:13px;font-weight:700}
+legend span{font:11px var(--mono);color:#66808e;margin-right:8px}
+.qualification-grid label>span{color:#08718a}
+.field-help{font-size:11px;line-height:1.8;margin:15px 0 0}
+.technical-details{margin:0;padding:14px 0;border-bottom:1px solid var(--line)}
+.technical-details summary{padding:0;font-size:12px}
+.technical-details .qualification-grid{margin-top:20px}
+.form-panel form>button{justify-content:center}
+[hidden]{display:none!important}
+.document-page{max-width:850px;min-height:65vh;padding:65px 35px 100px;margin:auto}
+.document-page>a:first-child{font-size:13px;color:#08718a}
+.document-page>.eyebrow{margin-top:45px}
+.document-page h1{font-size:clamp(32px,5vw,48px);margin-bottom:25px}
+.document-page h2{font-size:22px;margin:35px 0 12px;letter-spacing:-.025em}
+.document-page p,.document-page li{font-size:14px;line-height:1.9}
+.document-page p+p{margin-top:16px}
+.document-page a:not(:first-child){color:#08718a;text-decoration:underline;text-underline-offset:3px}
+.document-page .updated{font:400 10px/1.8 var(--mono);color:#286477;margin:22px 0}
+.document-footer{padding-bottom:42px}
+@media(max-width:900px){.quote>.form-panel{order:-1}}
+@media(max-width:650px){.document-page{padding:45px 22px 65px}.form-panel h3{font-size:27px}}
