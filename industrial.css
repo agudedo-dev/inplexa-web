@@ -22,6 +22,7 @@ legend span{font:11px var(--mono);color:#66808e;margin-right:8px}
 .technical-details summary{padding:0;font-size:12px}
 .technical-details .qualification-grid{margin-top:20px}
 .form-panel form>button{justify-content:center}
+.hero-shot figcaption{display:none}
 [hidden]{display:none!important}
 .document-page{max-width:850px;min-height:65vh;padding:65px 35px 100px;margin:auto}
 .document-page>a:first-child{font-size:13px;color:#08718a}
