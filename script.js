@@ -18,7 +18,7 @@
   };
   const whatsappUrl = message => `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
   document.querySelectorAll('[data-whatsapp]').forEach(link => {
-    link.href = whatsappUrl('Hola INPLEXA, quiero consultar por desarrollo y fabricación de piezas plásticas.');
+    link.href = whatsappUrl('Hola INPLEXA, quiero consultar por producción industrial de piezas plásticas en serie.\n\nEmpresa:\nPieza y aplicación:\nCantidad por lote:\nDemanda mensual o anual:\nPlazo requerido:');
     link.addEventListener('click', () => {
       // A WhatsApp click is useful engagement, but not a confirmed lead. It is
       // deliberately excluded from the Google Ads conversion used for bidding.
@@ -33,11 +33,29 @@
   tracked.forEach(key => { const input=document.querySelector(`[name="${key}"]`); if(input) input.value=params.get(key)||''; });
   document.getElementById('year').textContent = new Date().getFullYear();
   const quoteForm = document.getElementById('quoteForm');
+  const demandPeriod = quoteForm.elements.periodo_demanda;
+  const demandAmount = quoteForm.elements.cantidad_demanda;
+  const syncDemand = () => {
+    const known = demandPeriod.value === 'mensual' || demandPeriod.value === 'anual';
+    document.getElementById('cantidadDemanda').hidden = !known;
+    demandAmount.disabled = !known;
+    demandAmount.required = known;
+    if (!known) demandAmount.value = '';
+  };
+  demandPeriod.addEventListener('change', syncDemand);
+  syncDemand();
   const submitQuote = () => {
+    ['empresa','nombre','consulta','telefono'].forEach(name => {
+      const field = quoteForm.elements[name];
+      field.value = field.value.trim();
+    });
     if (!quoteForm.reportValidity()) return;
     const d=new FormData(quoteForm);
     const company = String(d.get('empresa') || '').trim();
-    const msg=`Hola INPLEXA, quiero consultar por un proyecto.\n\n*Nombre:* ${d.get('nombre')}${company ? `\n*Empresa:* ${company}` : ''}\n*Necesidad:* ${d.get('consulta')}`;
+    const demand = d.get('periodo_demanda') === 'a_definir'
+      ? 'A definir con evaluación comercial'
+      : `${d.get('cantidad_demanda')} unidades (${d.get('periodo_demanda')})`;
+    const msg=`Hola INPLEXA, quiero cotizar una producción industrial en serie.\n\n*Empresa:* ${company}\n*Nombre:* ${d.get('nombre')}\n*Email:* ${d.get('email')}\n*Teléfono:* ${d.get('telefono')}\n*Pieza y aplicación:* ${d.get('consulta')}\n*Primer lote:* ${d.get('cantidad_lote')} unidades\n*Producción:* ${d.get('recurrencia')}\n*Demanda prevista:* ${demand}\n*Material:* ${d.get('material') || 'Requiere asesoramiento'}\n*Documentación:* ${d.get('documentacion')}\n*Molde:* ${d.get('molde')}\n*Plazo:* ${d.get('plazo') || 'A definir'}`;
     // Keep campaign attribution internal; it must never be appended to the customer's message.
     const attribution = Object.fromEntries(tracked.map(key => [key, String(d.get(key) || '')]));
     sendEvent('generate_lead',{lead_source:d.get('utm_source')||'direct',contact_method:'whatsapp_form'},attribution);
