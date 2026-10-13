@@ -12,6 +12,14 @@ La página conserva `utm_source`, `utm_medium`, `utm_campaign` y `gclid` en los 
 
 La conversión del formulario mide la preparación de la consulta y su apertura en WhatsApp; no confirma que el cliente haya enviado el mensaje. La landing no guarda consultas directamente en el CRM.
 
+## Mejoras de captación — 13 de octubre de 2026
+
+La landing presenta componentes para productos y equipos (carcasas, tapas, soportes y piezas funcionales), con evaluación técnica previa. Incluye una fotografía de muestras reales en desarrollo, con retoque de iluminación y fondo declarado en el pie de imagen; no se presenta como producción validada ni como caso de un cliente identificado.
+
+El formulario incorpora disponibilidad del molde y distingue la demanda conocida de la que requiere evaluación. La medición registra una sola preparación por envío, usa un identificador anónimo y permite volver desde WhatsApp para modificar la consulta. El inicio del formulario ayuda a detectar abandono. Los clics directos en WhatsApp conservan su conversión secundaria.
+
+Para evaluar calidad comercial, registrar en el CRM si el contacto llegó, empresa, pieza, lote, recurrencia, viabilidad técnica y avance a cotización. La conversión de Google Ads se llama «Consulta industrial preparada · WhatsApp»; por sí sola no acredita un cliente calificado ni una venta. El valor de ARS 1 es nominal y no representa facturación.
+
 ## Calificación industrial — 3 de octubre de 2026
 
 El sitio se orienta a empresas e industrias con producción en serie, reposiciones y demanda recurrente. El formulario pide empresa, contacto, pieza/aplicación, cantidad del lote, recurrencia y demanda mensual/anual. Una demanda a definir se deriva a evaluación comercial; no se considera automáticamente un lead calificado. Material, documentación, molde y plazo amplían la consulta y los archivos se comparten por WhatsApp.
